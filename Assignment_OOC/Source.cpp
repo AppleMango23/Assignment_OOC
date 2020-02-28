@@ -16,6 +16,24 @@ int main() {
 
 		cout << "Decision: ";
 		cin >> decision;
+
+		switch (decision)
+		{
+			default:
+				break;
+
+			case 1:
+			{
+				cout << endl << "Case 1" << endl;
+				break;
+			}
+
+			case 2:
+			{
+				cout << endl << "Case 2" << endl;
+				break;
+			}
+		}
 		cout << endl;
 	}
 
