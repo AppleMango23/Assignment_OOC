@@ -14,6 +14,6 @@ void boat::setName()
 
 string boat::getName()
 {
-
+	return name;
 }
 

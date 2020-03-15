@@ -7,6 +7,14 @@ using namespace std;
 int main() {
 	int decision = 0;
 
+	// Create object file pointer for reading
+	ifstream inFile;   //For read
+	ofstream outFile;  //For write
+
+	// Define variable for data to be read from file
+	string line;
+	
+
 	cout << "=======Welcome to Marina Bay=======" << endl;
 	while(decision != 4)
 	{
@@ -27,23 +35,15 @@ int main() {
 			case 1:
 			{
 				cout << endl << "Case 1" << endl;
-
-				//------HAVENT EDIT-----------
-				// Create object file pointer for reading
-				ifstream inFile;
-				ofstream outFile;
-
-				// Define variable for data to be read from file
-				string line;
-
 				// Connect to file for reading
-				outFile.open("testfile.txt");
+				outFile.open("saveFile.txt",ios::app);
 
 				if (outFile.is_open() == false)
 					cout << "Error opening file\n" << endl;
 				else
 				{
 					cout << "Please type something to save something tq." << endl;
+					cin.ignore();
 					getline(cin, line);
 					outFile << line << '\n';
 				}
