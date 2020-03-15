@@ -1,6 +1,8 @@
 #include<iostream>
-
+#include <fstream>
+#include <string>
 using namespace std;
+
 
 int main() {
 	int decision = 0;
@@ -25,6 +27,29 @@ int main() {
 			case 1:
 			{
 				cout << endl << "Case 1" << endl;
+
+				//------HAVENT EDIT-----------
+				// Create object file pointer for reading
+				ifstream inFile;
+				ofstream outFile;
+
+				// Define variable for data to be read from file
+				string line;
+
+				// Connect to file for reading
+				outFile.open("testfile.txt");
+
+				if (outFile.is_open() == false)
+					cout << "Error opening file\n" << endl;
+				else
+				{
+					cout << "Please type something to save something tq." << endl;
+					getline(cin, line);
+					outFile << line << '\n';
+				}
+
+				outFile.close();
+
 				break;
 			}
 
