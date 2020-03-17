@@ -1,18 +1,26 @@
-#include<iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include "Header.h";
+
 using namespace std;
 
 int main() {
 	int decision = 0;
+	Boat* boatOne = new Boat();
 
 	// Create object file pointer for reading
 	ifstream inFile;   //For read
 	ofstream outFile;  //For write
 
 	// Define variable for data to be read from file
-	string name,boatName;
-	int boatLength,boatDraft;
+	string name,boatName,line;
+	int boatLength,boatDraft,x=1;
+	string searchName;
+	int lineNumber = 0;
+	string line2;
+	string FoundLine = "";
 	
 
 	cout << "=======Welcome to Marina Bay=======" << endl;
@@ -35,7 +43,7 @@ int main() {
 			{
 				cout << endl << "Case 1" << endl;
 				// Connect to file for reading
-				outFile.open("saveFile.txt",ios::app);
+				outFile.open("saveFile.txt",ios::out | ios::binary | ios::app);
 
 				if (outFile.is_open() == false)
 					cout << "Error opening file\n" << endl;
@@ -43,11 +51,14 @@ int main() {
 				{
 					cout << "Please owner name: ";
 					cin >> name;
+					//boatOne->setName(name);
+
 					//cin.ignore();
 					//getline(cin, line);
 
 					cout << "Please type your boat name: ";
 					cin >> boatName;
+					//boatName += "\n";
 
 					cout << "Please type your boat length: ";
 					cin >> boatLength;
@@ -55,7 +66,9 @@ int main() {
 					cout << "Please type your boat draft: ";
 					cin >> boatDraft;
 
-					outFile << name << " [BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
+					//outFile.write((char*)boatOne, sizeof(Boat));
+					
+					outFile << name << "\t\t\t[BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
 				}
 				outFile.close();
 				break;
@@ -63,10 +76,24 @@ int main() {
 
 			case 2:
 			{
+				
+
 				cout << endl << "Case 2" << endl;
 
-				// Define variable for data to be read from file
-				string line;
+				
+				 
+
+
+				break;
+				
+			}
+
+			case 3:
+			{
+				FoundLine = "";
+				lineNumber = 0;
+
+				cout << endl << "Case 3" << endl;
 
 				// Connect to file for reading
 				inFile.open("saveFile.txt");
@@ -75,21 +102,82 @@ int main() {
 					cout << "Error opening file\n" << endl;
 				else
 				{
-					cout << "Please type something to save something tq." << endl;
+					cout << "==================The list of the customer information==================" << endl;
 					//cin.ignore();
 
-					//Havent add the while loop
-					getline(inFile, line);
-					cout << line <<endl;
+					//This one will search the whole thing
+					//getline(inFile, line, (char)inFile.eof());
+
+					
 
 
-					//inFile.read((char*)newOneYeah, sizeof(City));
+
+					
+
+					while (getline(inFile, line2)) {
+						istringstream iss(line2);
+						cout << line2 << endl;
+					}
+					inFile.clear();                 // clear fail and eof bits
+					inFile.seekg(0, std::ios::beg); // back to the start!
+
+					cout << "\nSearch name owner: ";
+					cin >> searchName;
+
+					
+					
+					while (getline(inFile, line2)) {
+						istringstream iss(line2);
+						
+						if (line2.find(searchName) != std::string::npos) {
+							lineNumber+=1;
+							cout << "\nStatus: Found!" << '\n';
+							FoundLine = line2;
+							break;
+						}
+						else {
+							
+							lineNumber +=1;
+						}
+					}
+					if (FoundLine == "")
+					{
+						cout << "Cant Find the name" << endl;
+					}
+					else {
+						cout << "Line number: " << lineNumber << endl;
+						cout << "Found line: " << FoundLine << endl;
+					}
+					
+					
+
+					
+
+					
+						
+					
+
+
+					
+
+					/*delete boatOne;
+
+					Boat* boatRead = new Boat();*/
+
+					/*cout << "A city -> ";
+					inFile.read((char*)boatOne, sizeof(Boat));
+					cout << boatOne->getName() << endl;*/
+
+					
+					
+					
+					
+					
 
 				}
 
 				inFile.close();
-				system("pause");
-				return 0;
+
 				break;
 			}
 		}

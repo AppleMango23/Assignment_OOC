@@ -1,1 +1,5 @@
-test
+NoahGor			[BoatName: GorBoat, BoatLength: 20, BoatDraft: 13 ] 
+TesLa			[BoatName: BoatTest, BoatLength: 10, BoatDraft: 13 ] 
+RaymondBo		[BoatName: BoatyBot, BoatLength: 13, BoatDraft: 20 ] 
+SteveGer		[BoatName: GerBoat, BoatLength: 10, BoatDraft: 13 ] 
+Reeny			[BoatName: ReenyBoaba, BoatLength: 1, BoatDraft: 13 ] 
