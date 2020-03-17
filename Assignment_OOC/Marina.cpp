@@ -17,7 +17,7 @@ string Boat::getName()
 	return name;
 }
 
-//Link list
+//---------------------------Link list-------------------------------
 BoatNode::BoatNode()
 {
 	boatName = NULL;  // default 

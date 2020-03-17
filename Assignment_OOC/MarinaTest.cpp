@@ -49,16 +49,16 @@ int main() {
 					cout << "Error opening file\n" << endl;
 				else
 				{
+
+					//---------------Use object and link list in-----------------
 					cout << "Please owner name: ";
 					cin >> name;
 					//boatOne->setName(name);
-
 					//cin.ignore();
 					//getline(cin, line);
 
 					cout << "Please type your boat name: ";
 					cin >> boatName;
-					//boatName += "\n";
 
 					cout << "Please type your boat length: ";
 					cin >> boatLength;
@@ -67,7 +67,6 @@ int main() {
 					cin >> boatDraft;
 
 					//outFile.write((char*)boatOne, sizeof(Boat));
-					
 					outFile << name << "\t\t\t[BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
 				}
 				outFile.close();
@@ -76,14 +75,7 @@ int main() {
 
 			case 2:
 			{
-				
-
 				cout << endl << "Case 2" << endl;
-
-				
-				 
-
-
 				break;
 				
 			}
@@ -108,12 +100,6 @@ int main() {
 					//This one will search the whole thing
 					//getline(inFile, line, (char)inFile.eof());
 
-					
-
-
-
-					
-
 					while (getline(inFile, line2)) {
 						istringstream iss(line2);
 						cout << line2 << endl;
@@ -124,11 +110,8 @@ int main() {
 					cout << "\nSearch name owner: ";
 					cin >> searchName;
 
-					
-					
 					while (getline(inFile, line2)) {
 						istringstream iss(line2);
-						
 						if (line2.find(searchName) != std::string::npos) {
 							lineNumber+=1;
 							cout << "\nStatus: Found!" << '\n';
@@ -147,42 +130,21 @@ int main() {
 					else {
 						cout << "Line number: " << lineNumber << endl;
 						cout << "Found line: " << FoundLine << endl;
-					}
-					
-					
+					}	
 
-					
-
-					
-						
-					
-
-
-					
-
-					/*delete boatOne;
-
+					/*delete boatOne
 					Boat* boatRead = new Boat();*/
 
 					/*cout << "A city -> ";
 					inFile.read((char*)boatOne, sizeof(Boat));
 					cout << boatOne->getName() << endl;*/
-
-					
-					
-					
-					
-					
-
 				}
-
 				inFile.close();
-
 				break;
 			}
 		}
 		cout << endl;
 	}
-	cout << "\n-----------------" << endl;
-	cout << "Application exited" << endl << endl;
+	cout << "\n=============================================================" << endl;
+	cout << "\t\tApplication exited" << endl << endl;
 }
