@@ -49,26 +49,29 @@ int main() {
 					cout << "Error opening file\n" << endl;
 				else
 				{
-					Boat* boatOne = new Boat();
+					
 					//---------------Use object and link list in-----------------
 
 					cout << "Please owner name: ";
 					cin >> name;
-					boatOne->setName(name);
+					
 					//cin.ignore();
 					//getline(cin, line);
 
 					cout << "Please type your boat name: ";
 					cin >> boatName;
-					//boatOne->
+					
 
 					cout << "Please type your boat length: ";
 					cin >> boatLength;
+					
 
 					cout << "Please type your boat draft: ";
 					cin >> boatDraft;
-
 					
+
+					//At this stage all is saved but havet read.
+
 
 					//linkedlist 
 					BoatList* boatlistNew = new BoatList();
@@ -76,15 +79,21 @@ int main() {
 					string bLength = to_string(boatLength);
 					string bDraft = to_string(boatDraft);
 
-					boatlistNew->addFirstBoat(name);
-					boatlistNew->addBoatAtEnd(boatName);
+					boatlistNew->addBoatAtEnd(name, boatName,boatLength,boatDraft);
+
+					/*boatlistNew->addBoatAtEnd(boatName);
 					boatlistNew->addBoatAtEnd(bLength);
-					boatlistNew->addBoatAtEnd(bDraft);
+					boatlistNew->addBoatAtEnd(bDraft);*/
 
 					//This will display
-					boatlistNew->listAllNames();
+					//boatlistNew->listAllNames();
 
+					//This is to save the pure object into file
 					//outFile.write((char*)boatOne, sizeof(Boat));
+
+					//Need to put into linked list first
+					//......
+
 					//outFile << name << "\t\t\t[BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
 				}
 				outFile.close();

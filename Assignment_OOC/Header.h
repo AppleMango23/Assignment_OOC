@@ -16,8 +16,6 @@ class Boat
 	int bLength;
 	int bDraft;
 
-	int popn;
-
 public:
 	Boat();
 	void setName(string nameParam);
@@ -42,7 +40,7 @@ using namespace std;
 class BoatNode
 {
 private:
-	string* boatName;          // town's name    
+	string* bName;          // town's name    
 	BoatNode* next;            // link to next
 public:
 	BoatNode();                // no argument constructor
@@ -61,8 +59,7 @@ private:
 public:
 	BoatList();
 	bool isEmpty();
-	void addFirstBoat(string name);
-	void addBoatAtEnd(string name);
+	void addBoatAtEnd(string name, string bName, int bLength, int bDraft);
 	void listAllNames();
 };
 #endif
