@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 	int decision = 0;
-	Boat* boatOne = new Boat();
+	
 
 	// Create object file pointer for reading
 	ifstream inFile;   //For read
@@ -49,16 +49,18 @@ int main() {
 					cout << "Error opening file\n" << endl;
 				else
 				{
-
+					Boat* boatOne = new Boat();
 					//---------------Use object and link list in-----------------
+
 					cout << "Please owner name: ";
 					cin >> name;
-					//boatOne->setName(name);
+					boatOne->setName(name);
 					//cin.ignore();
 					//getline(cin, line);
 
 					cout << "Please type your boat name: ";
 					cin >> boatName;
+					//boatOne->
 
 					cout << "Please type your boat length: ";
 					cin >> boatLength;
@@ -66,8 +68,24 @@ int main() {
 					cout << "Please type your boat draft: ";
 					cin >> boatDraft;
 
+					
+
+					//linkedlist 
+					BoatList* boatlistNew = new BoatList();
+
+					string bLength = to_string(boatLength);
+					string bDraft = to_string(boatDraft);
+
+					boatlistNew->addFirstBoat(name);
+					boatlistNew->addBoatAtEnd(boatName);
+					boatlistNew->addBoatAtEnd(bLength);
+					boatlistNew->addBoatAtEnd(bDraft);
+
+					//This will display
+					boatlistNew->listAllNames();
+
 					//outFile.write((char*)boatOne, sizeof(Boat));
-					outFile << name << "\t\t\t[BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
+					//outFile << name << "\t\t\t[BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
 				}
 				outFile.close();
 				break;

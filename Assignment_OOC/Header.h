@@ -12,12 +12,25 @@ using namespace std;
 class Boat
 {
 	string name;
+	string bName;
+	int bLength;
+	int bDraft;
+
 	int popn;
 
 public:
 	Boat();
 	void setName(string nameParam);
 	string getName();
+
+	void setBoatName(string bNameParam);
+	string getBName();
+
+	void setLength(int lengthParam);
+	int getLength();
+
+	void setDraft(int draftParam);
+	int getDraft();
 };
 #endif
 
@@ -50,23 +63,8 @@ public:
 	bool isEmpty();
 	void addFirstBoat(string name);
 	void addBoatAtEnd(string name);
-	//void addBoatAtStart(string name);
 	void listAllNames();
 };
 #endif
 
 
-
-//#ifndef StudentList_two
-//#define StudentList_two
-//class StudentList
-//{
-//	Student* group[10];  // space for 10 students
-//
-//public:
-//
-//	StudentList();            // populate list - better from file
-//	Student* findStudent(char*);
-//
-//};
-//#endif

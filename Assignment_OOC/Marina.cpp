@@ -17,6 +17,36 @@ string Boat::getName()
 	return name;
 }
 
+void Boat::setBoatName(string bNameParam)
+{
+	bName = bNameParam;
+}
+
+string Boat::getBName()
+{
+	return bName;
+}
+
+void Boat::setLength(int lengthParam)
+{
+	bLength = lengthParam;
+}
+
+int Boat::getLength()
+{
+	return bLength;
+}
+
+void Boat::setDraft(int draftParam)
+{
+	bDraft = draftParam;
+}
+
+int Boat::getDraft()
+{
+	return bDraft;
+}
+
 //---------------------------Link list-------------------------------
 BoatNode::BoatNode()
 {
