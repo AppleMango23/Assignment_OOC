@@ -51,14 +51,14 @@ int Boat::getDraft()
 //---------------------------Link list-------------------------------
 BoatNode::BoatNode()
 {
-	bName = NULL;  // default 
-	next = NULL;		 // initialise next
+	bName = NULL;	// default 
+	next = NULL;	//initialise next
 }
 
-BoatNode::BoatNode(string name)
+BoatNode::BoatNode(int name)
 {
-	bName = new string(name);  // store name
-	next = NULL;                  // initialise next
+	bName = new int(name);	// store name
+	next = NULL;                 // initialise next
 }
 
 void BoatNode::setNext(BoatNode* nextNode)
@@ -71,7 +71,7 @@ BoatNode* BoatNode::getNext()
 	return next;
 }
 
-string* BoatNode::getName()
+int* BoatNode::getName()
 {
 	return bName;
 }
@@ -90,7 +90,6 @@ bool BoatList::isEmpty()
 void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 {
 	//adding 4 instead of one Param
-
 	BoatNode* current;
 	Boat* boatOne = new Boat();
 	boatOne->setName(name);
@@ -99,39 +98,26 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 	boatOne->setDraft(bDraft);
 
 	 int wholeThing = ((char*)boatOne, sizeof(Boat));
-	 string newWholeThing = to_string(wholeThing);
-
+	 //string newWholeThing = to_string(wholeThing);
 	//Start
 	if (end == NULL)       // if list is empty
 	{
-		current = new BoatNode(newWholeThing);  // allocate memory
+		current = new BoatNode(wholeThing);  // allocate memory
 		start = current;               // change start 
 		end = current;				  // and end
-	}
-		
+	}	
 	else
 	{
-		current = new BoatNode(newWholeThing);   // allocate memory
+		current = new BoatNode(wholeThing);   // allocate memory
 		end->setNext(current);          // change end's next
 		end = current;                  // change end
 	}
-
-	
 	ofstream outFile;  //For write
 	outFile.open("saveFile.txt", ios::out | ios::binary | ios::app);
 	outFile.write((char*)boatOne, sizeof(Boat));
 	outFile.close();
 
-	Boat* boatTwo = new Boat();
-
-	ifstream inFile;   //For read
-	inFile.open("saveFile.txt", ios::in | ios::binary | ios::app);
-	inFile.read((char*)boatTwo, sizeof(Boat));
-	cout << "Getname => " << boatOne->getName() << endl;
-	cout << "GetBname => " << boatOne->getBName() << endl;
-	cout << "GetDraft => " << boatOne->getDraft() << endl;
-	cout << "GetLength => " << boatOne->getLength() << endl;
-	inFile.close();
+	
 
 
 	
@@ -139,21 +125,41 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 
 void BoatList::listAllNames()
 {
-	BoatNode* current;
+	//This one is for the no linked list der output
+	//BoatNode* current;
 
-	if (!isEmpty())
-	{
-		cout << "Start of List" << endl;
-		current = start;
-		while (current != NULL)
-		{
-			// Funny syntax here as we have to de-reference a pointer to a pointer
-			cout << "Next town is: " << *(current->getName()) << endl;
-			current = current->getNext();
-		}
-		cout << "End of List" << endl << endl;
-	}
-	else
-		cout << "List empty" << endl << endl;
+	//if (!isEmpty())
+	//{
+	//	cout << "Start of List" << endl;
+	//	current = start;
+	//	while (current != NULL)
+	//	{
+	//		// Funny syntax here as we have to de-reference a pointer to a pointer
+	//		cout << "Next town is: " << *(current->getName()) << endl;
+	//		current = current->getNext();
+	//	}
+	//	cout << "End of List" << endl << endl;
+	//}
+	//else
+	//	cout << "List empty" << endl << endl;
+
+
+	////Linked list version 1 display
+	//Boat* boatTwo = new Boat();
+	//ifstream inFile;   //For read
+	//inFile.open("saveFile.txt", ios::in | ios::binary | ios::app);
+
+
+	//inFile.read((char*)boatTwo, sizeof(Boat));
+	//cout << "Getname => " << boatTwo->getName() << endl;
+	//cout << "GetBname => " << boatTwo->getBName() << endl;
+	//cout << "GetDraft => " << boatTwo->getDraft() << endl;
+	//cout << "GetLength => " << boatTwo->getLength() << endl;
+
+	//
+
+	//inFile.close();
+
+
 }
 

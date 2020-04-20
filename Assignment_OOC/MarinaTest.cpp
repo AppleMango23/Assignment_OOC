@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 	int decision = 0;
-	
+	BoatList* boatlistNew = new BoatList();
 
 	// Create object file pointer for reading
 	ifstream inFile;   //For read
@@ -42,7 +42,7 @@ int main() {
 			case 1:
 			{
 				cout << endl << "Case 1" << endl;
-				// Connect to file for reading
+				//--------------------Connect to file for reading---------------
 				outFile.open("saveFile.txt",ios::out | ios::binary | ios::app);
 
 				if (outFile.is_open() == false)
@@ -68,22 +68,12 @@ int main() {
 
 					cout << "Please type your boat draft: ";
 					cin >> boatDraft;
+
 					
-
-					//At this stage all is saved but havet read.
-
-
-					//linkedlist 
-					BoatList* boatlistNew = new BoatList();
-
-					string bLength = to_string(boatLength);
-					string bDraft = to_string(boatDraft);
 
 					boatlistNew->addBoatAtEnd(name, boatName,boatLength,boatDraft);
 
-					/*boatlistNew->addBoatAtEnd(boatName);
-					boatlistNew->addBoatAtEnd(bLength);
-					boatlistNew->addBoatAtEnd(bDraft);*/
+					
 
 					//This will display
 					//boatlistNew->listAllNames();
@@ -109,69 +99,78 @@ int main() {
 
 			case 3:
 			{
-				FoundLine = "";
-				lineNumber = 0;
+				//linkedlist 
 
-				cout << endl << "Case 3" << endl;
+				boatlistNew->listAllNames();
 
-				// Connect to file for reading
-				inFile.open("saveFile.txt");
 
-				if (inFile.is_open() == false)
-					cout << "Error opening file\n" << endl;
-				else
-				{
-					cout << "==================The list of the customer information==================" << endl;
-					//cin.ignore();
 
-					//This one will search the whole thing
-					//getline(inFile, line, (char)inFile.eof());
+				//previous shit
+				//FoundLine = "";
+				//lineNumber = 0;
 
-					while (getline(inFile, line2)) {
-						istringstream iss(line2);
-						cout << line2 << endl;
-					}
-					inFile.clear();                 // clear fail and eof bits
-					inFile.seekg(0, std::ios::beg); // back to the start!
+				//cout << endl << "Case 3" << endl;
 
-					cout << "\nSearch name owner: ";
-					cin >> searchName;
+				//// Connect to file for reading
+				//inFile.open("saveFile.txt");
 
-					while (getline(inFile, line2)) {
-						istringstream iss(line2);
-						if (line2.find(searchName) != std::string::npos) {
-							lineNumber+=1;
-							cout << "\nStatus: Found!" << '\n';
-							FoundLine = line2;
-							break;
-						}
-						else {
-							
-							lineNumber +=1;
-						}
-					}
-					if (FoundLine == "")
-					{
-						cout << "Cant Find the name" << endl;
-					}
-					else {
-						cout << "Line number: " << lineNumber << endl;
-						cout << "Found line: " << FoundLine << endl;
-					}	
+				//if (inFile.is_open() == false)
+				//	cout << "Error opening file\n" << endl;
+				//else
+				//{
+				//	cout << "==================The list of the customer information==================" << endl;
+				//	//cin.ignore();
 
-					/*delete boatOne
-					Boat* boatRead = new Boat();*/
+				//	//This one will search the whole thing
+				//	//getline(inFile, line, (char)inFile.eof());
 
-					/*cout << "A city -> ";
-					inFile.read((char*)boatOne, sizeof(Boat));
-					cout << boatOne->getName() << endl;*/
-				}
-				inFile.close();
+				//	while (getline(inFile, line2)) {
+				//		istringstream iss(line2);
+				//		cout << line2 << endl;
+				//	}
+				//	inFile.clear();                 // clear fail and eof bits
+				//	inFile.seekg(0, std::ios::beg); // back to the start!
+
+				//	cout << "\nSearch name owner: ";
+				//	cin >> searchName;
+
+				//	while (getline(inFile, line2)) {
+				//		istringstream iss(line2);
+				//		if (line2.find(searchName) != std::string::npos) {
+				//			lineNumber+=1;
+				//			cout << "\nStatus: Found!" << '\n';
+				//			FoundLine = line2;
+				//			break;
+				//		}
+				//		else {
+				//			
+				//			lineNumber +=1;
+				//		}
+				//	}
+				//	if (FoundLine == "")
+				//	{
+				//		cout << "Cant Find the name" << endl;
+				//	}
+				//	else {
+				//		cout << "Line number: " << lineNumber << endl;
+				//		cout << "Found line: " << FoundLine << endl;
+				//	}	
+
+				//	/*delete boatOne
+				//	Boat* boatRead = new Boat();*/
+
+				//	/*cout << "A city -> ";
+				//	inFile.read((char*)boatOne, sizeof(Boat));
+				//	cout << boatOne->getName() << endl;*/
+				//}
+				//inFile.close();
 				break;
 			}
 		}
 		cout << endl;
 	}
+
+	boatlistNew->saveBoat();
 	cout << "\n=============================================================" << endl;
 	cout << "\t\tApplication exited" << endl << endl;
 }
