@@ -40,14 +40,14 @@ using namespace std;
 class BoatNode
 {
 private:
-	int* bName;          // town's name    
+	Boat* bName;          // town's name    
 	BoatNode* next;            // link to next
 public:
 	BoatNode();                // no argument constructor
-	BoatNode(int name);
+	BoatNode(Boat* name);
 	void setNext(BoatNode* nextNode);
 	BoatNode* getNext();
-	int* getName();
+	Boat* getName();
 };
 
 

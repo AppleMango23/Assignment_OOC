@@ -1,5 +1,6 @@
 #include "Header.h"
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -55,9 +56,9 @@ BoatNode::BoatNode()
 	next = NULL;	//initialise next
 }
 
-BoatNode::BoatNode(int name)
+BoatNode::BoatNode(Boat* name)
 {
-	bName = new int(name);	// store name
+	bName = name;	// store name
 	next = NULL;                 // initialise next
 }
 
@@ -71,7 +72,7 @@ BoatNode* BoatNode::getNext()
 	return next;
 }
 
-int* BoatNode::getName()
+Boat* BoatNode::getName()
 {
 	return bName;
 }
@@ -89,9 +90,9 @@ bool BoatList::isEmpty()
 
 void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 {
-	//adding 4 instead of one Param
 	BoatNode* current;
 	Boat* boatOne = new Boat();
+
 	boatOne->setName(name);
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
@@ -102,63 +103,92 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 	//Start
 	if (end == NULL)       // if list is empty
 	{
-		current = new BoatNode(wholeThing);  // allocate memory
+		current = new BoatNode(boatOne);  // allocate memory
 		start = current;               // change start 
 		end = current;				  // and end
 	}	
 	else
 	{
-		current = new BoatNode(wholeThing);   // allocate memory
+		current = new BoatNode(boatOne);   // allocate memory
 		end->setNext(current);          // change end's next
 		end = current;                  // change end
 	}
-	ofstream outFile;  //For write
-	outFile.open("saveFile.txt", ios::out | ios::binary | ios::app);
-	outFile.write((char*)boatOne, sizeof(Boat));
-	outFile.close();
 
 	
+}
+
+void BoatList::saveBoat()
+{
+	//This one is for the no linked list der output
+	BoatNode* current;
+	Boat* wordsOut = new Boat();
+	ofstream outFile;  //For write
+
+	outFile.open("saveFile.txt", ios::out | ios::app);
+
+	if (!isEmpty())
+	{
+		cout << "\nStart Saving" << endl;
+		current = start;
+		while (current != NULL)
+		{
+			wordsOut = (current->getName());
+			// Funny syntax here as we have to de-reference a pointer to a pointer
+			outFile << wordsOut->getName() << endl;
+			outFile << wordsOut->getBName() << endl;
+			outFile << wordsOut->getLength() << endl;
+			outFile << wordsOut->getDraft() << endl << endl;
+			current = current->getNext();
+		}
+		cout << "End saving" << endl << endl;
+	}
+	else
+		cout << "List empty" << endl << endl;
 
 
+	outFile.close();
 	
 }
 
 void BoatList::listAllNames()
 {
 	//This one is for the no linked list der output
-	//BoatNode* current;
+	BoatNode* current;
+	Boat* wordsOut = new Boat();
+	ifstream inFile;  //For write
+	string line2;
+
+
+	inFile.open("saveFile.txt", ios::out | ios::app);
+	
+	while (getline(inFile, line2)) {
+		istringstream iss(line2);
+		cout << line2 << endl;
+	}
 
 	//if (!isEmpty())
 	//{
-	//	cout << "Start of List" << endl;
+	//	cout << "\nStart Saving" << endl;
 	//	current = start;
 	//	while (current != NULL)
 	//	{
+	//		wordsOut = (current->getName());
 	//		// Funny syntax here as we have to de-reference a pointer to a pointer
-	//		cout << "Next town is: " << *(current->getName()) << endl;
+	//		cout << wordsOut->getName() << endl;
+	//		cout << wordsOut->getBName() << endl;
+	//		cout << wordsOut->getLength() << endl;
+	//		cout << wordsOut->getDraft() << endl << endl;
 	//		current = current->getNext();
 	//	}
-	//	cout << "End of List" << endl << endl;
+	//	cout << "End saving" << endl << endl;
 	//}
 	//else
 	//	cout << "List empty" << endl << endl;
 
 
-	////Linked list version 1 display
-	//Boat* boatTwo = new Boat();
-	//ifstream inFile;   //For read
-	//inFile.open("saveFile.txt", ios::in | ios::binary | ios::app);
-
-
-	//inFile.read((char*)boatTwo, sizeof(Boat));
-	//cout << "Getname => " << boatTwo->getName() << endl;
-	//cout << "GetBname => " << boatTwo->getBName() << endl;
-	//cout << "GetDraft => " << boatTwo->getDraft() << endl;
-	//cout << "GetLength => " << boatTwo->getLength() << endl;
-
-	//
-
-	//inFile.close();
+	inFile.close();
+	
+	
 
 
 }

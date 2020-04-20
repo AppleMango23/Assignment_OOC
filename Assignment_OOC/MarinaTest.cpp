@@ -101,6 +101,7 @@ int main() {
 			{
 				//linkedlist 
 
+				boatlistNew->saveBoat();
 				boatlistNew->listAllNames();
 
 
