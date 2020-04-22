@@ -72,6 +72,16 @@ BoatNode* BoatNode::getNext()
 	return next;
 }
 
+void BoatNode::setPre(BoatNode* preNode)
+{
+	pre = preNode;  // change next node
+}
+
+BoatNode* BoatNode::getPre()
+{
+	return pre;
+}
+
 Boat* BoatNode::getName()
 {
 	return bName;
@@ -97,9 +107,7 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
 	boatOne->setDraft(bDraft);
-
-	 int wholeThing = ((char*)boatOne, sizeof(Boat));
-	 //string newWholeThing = to_string(wholeThing);
+	
 	//Start
 	if (end == NULL)       // if list is empty
 	{
@@ -107,14 +115,140 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 		start = current;               // change start 
 		end = current;				  // and end
 	}	
+	//end
 	else
 	{
+		//Single linked list
 		current = new BoatNode(boatOne);   // allocate memory
-		end->setNext(current);          // change end's next
+		end->setNext(current);          // change end's 
 		end = current;                  // change end
 	}
 
 	
+}
+
+void BoatList::removeBoat(int position)
+{
+	////This one is for the no linked list der output
+	//BoatNode* current;
+	//Boat* dustbin = new Boat();
+	//
+	//ofstream outFile;  //For write
+	//
+	//int x = 0;
+
+	////For saving
+	//outFile.open("saveFile.txt", ios::out | ios::app);
+
+	//cout << dustbin->getBName();
+	//
+	//outFile.close();
+
+	//Experiment
+	//This one is for the no linked list der output
+	BoatNode* current;
+	Boat* wordsOut = new Boat();
+	Boat* wordsOut2 = new Boat();
+	BoatList* tempTest = new BoatList();
+	ifstream inFile;  //For write
+	string line2;
+	int counter = 0;
+	int counterSet = 0;
+
+	inFile.open("saveFile.txt", ios::out | ios::app);
+	while (getline(inFile, line2)) {
+		counter++;
+		if (counter == 1) {
+			wordsOut->setName(line2);
+		}
+		if (counter == 2) {
+			wordsOut->setBoatName(line2);
+		}
+		if (counter == 3) {
+			wordsOut->setLength(std::stoi(line2));
+		}
+		if (counter == 4) {
+			wordsOut->setDraft(std::stoi(line2));
+			counterSet++;
+			if (counterSet != position) {
+				//Start
+				if (end == NULL)       // if list is empty
+				{
+					current = new BoatNode(wordsOut);  // allocate memory
+					start = current;               // change start 
+					end = current;				  // and end
+					tempTest->temp(wordsOut);
+				}
+				//end
+				else
+				{
+					current = new BoatNode(wordsOut);   // allocate memory
+					start->setNext(current);          // change end's 
+					//end->setPre(current);
+					end = current;                  // change end
+					tempTest->temp(wordsOut);
+				}
+			}
+			else {
+
+			}
+			
+		}
+		if (counter == 5)
+		{
+			counter = 0;
+		}
+
+
+	}
+
+	inFile.close();
+
+
+
+	
+
+	
+}
+
+void BoatList::temp(Boat* wordsOut)
+{
+	//This one is working can see this
+	//cout<<"HERE"<<wordsOut->getName();
+	//int delNum = 1;
+	//BoatNode* current1=start;
+
+	//Should be listing out
+	/*if (!isEmpty())
+	{
+		current1 = start;
+		while (current1 != NULL)
+		{
+			delNum = delNum + 1;*/
+			//if (delNum == position)
+			//{
+			//	wordsOut = (current->getName());
+
+			//	//output
+			//	wordsOut2->setName(wordsOut->getName());
+			//	wordsOut2->setBoatName(wordsOut->getBName());
+			//	wordsOut2->setLength(wordsOut->getLength());
+			//	wordsOut2->setDraft(wordsOut->getDraft());
+
+			//	current = current->getNext();
+			//}
+			//else
+			//{
+			//wordsOut = (current1->getName());
+			cout << wordsOut->getName()
+				<< "\t" << wordsOut->getBName()
+				<< "\t" << wordsOut->getLength()
+				<< "\t" << wordsOut->getDraft() << endl;
+			//current1 = current1->getNext();
+			/*}*/
+		/*}
+	}*/
+
 }
 
 void BoatList::saveBoat()
@@ -123,31 +257,60 @@ void BoatList::saveBoat()
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
 	ofstream outFile;  //For write
+	int x = 0;
 
 	outFile.open("saveFile.txt", ios::out | ios::app);
 
 	if (!isEmpty())
 	{
-		cout << "\nStart Saving" << endl;
 		current = start;
 		while (current != NULL)
 		{
 			wordsOut = (current->getName());
-			// Funny syntax here as we have to de-reference a pointer to a pointer
-			outFile << wordsOut->getName() << endl;
-			outFile << wordsOut->getBName() << endl;
-			outFile << wordsOut->getLength() << endl;
-			outFile << wordsOut->getDraft() << endl << endl;
+			outFile << wordsOut->getName() 
+				<< "\t" << wordsOut->getBName()
+				<< "\t" << wordsOut->getLength() 
+				<< "\t" << wordsOut->getDraft() << "\n" << endl;
 			current = current->getNext();
+			x++;
 		}
-		cout << "End saving" << endl << endl;
+		cout <<"======="<< x << " customer saved=======" << endl;
 	}
-	else
-		cout << "List empty" << endl << endl;
-
-
 	outFile.close();
-	
+}
+
+void BoatList::searchInfo(string line2)
+{
+	//Out of topic i think, delete need to be delete due to the linked list
+
+	ifstream inFile;
+	int lineNumber=0;
+	string searchName,FoundLine;
+
+	cout << "\nSearch name owner: ";
+	cin >> searchName;
+
+	while (getline(inFile, line2)) {
+		istringstream iss(line2);
+		if (line2.find(searchName) != std::string::npos) {
+			lineNumber+=1;
+			cout << "\nStatus: Found!" << '\n';
+			FoundLine = line2;
+			break;
+		}
+		else {
+				
+			lineNumber +=1;
+		}
+	}
+	if (FoundLine == "")
+	{
+		cout << "Cant Find the name" << endl;
+	}
+	else {
+		cout << "Line number: " << lineNumber << endl;
+		cout << "Found line: " << FoundLine << endl;
+	}	
 }
 
 void BoatList::listAllNames()
@@ -157,39 +320,53 @@ void BoatList::listAllNames()
 	Boat* wordsOut = new Boat();
 	ifstream inFile;  //For write
 	string line2;
-
+	int counter = 0;
 
 	inFile.open("saveFile.txt", ios::out | ios::app);
-	
 	while (getline(inFile, line2)) {
-		istringstream iss(line2);
-		cout << line2 << endl;
+		counter++;
+		if(counter == 1){
+			wordsOut->setName(line2);
+			cout << wordsOut->getName();
+		}
+		if (counter == 2) {
+			wordsOut->setBoatName(line2);
+			cout << wordsOut->getBName();
+		}
+		if (counter == 3) {
+			wordsOut->setLength(std::stoi(line2));
+			cout << wordsOut->getLength();
+		}
+		if (counter == 4) {
+			wordsOut->setDraft(std::stoi(line2));
+			cout << wordsOut->getDraft();
+
+			//Start
+			if (end == NULL)       // if list is empty
+			{
+				current = new BoatNode(wordsOut);  // allocate memory
+				start = current;               // change start 
+				end = current;				  // and end
+				cout << endl;
+			}
+			//end
+			else
+			{
+				current = new BoatNode(wordsOut);   // allocate memory
+				end->setNext(current);          // change end's 
+				end = current;                  // change end
+				cout << endl;
+			}
+		}
+		if(counter == 5) 
+		{
+			counter = 0;
+		}
+
+
 	}
-
-	//if (!isEmpty())
-	//{
-	//	cout << "\nStart Saving" << endl;
-	//	current = start;
-	//	while (current != NULL)
-	//	{
-	//		wordsOut = (current->getName());
-	//		// Funny syntax here as we have to de-reference a pointer to a pointer
-	//		cout << wordsOut->getName() << endl;
-	//		cout << wordsOut->getBName() << endl;
-	//		cout << wordsOut->getLength() << endl;
-	//		cout << wordsOut->getDraft() << endl << endl;
-	//		current = current->getNext();
-	//	}
-	//	cout << "End saving" << endl << endl;
-	//}
-	//else
-	//	cout << "List empty" << endl << endl;
-
-
+		
 	inFile.close();
-	
-	
-
 
 }
 

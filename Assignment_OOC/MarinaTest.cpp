@@ -45,46 +45,26 @@ int main() {
 				//--------------------Connect to file for reading---------------
 				outFile.open("saveFile.txt",ios::out | ios::binary | ios::app);
 
+				//Checking is it open correctly and is the file existed or not
 				if (outFile.is_open() == false)
 					cout << "Error opening file\n" << endl;
 				else
 				{
-					
-					//---------------Use object and link list in-----------------
-
-					cout << "Please owner name: ";
-					cin >> name;
-					
 					//cin.ignore();
 					//getline(cin, line);
-
+					cout << "Please owner name: ";
+					cin >> name;
 					cout << "Please type your boat name: ";
 					cin >> boatName;
-					
-
 					cout << "Please type your boat length: ";
 					cin >> boatLength;
-					
-
 					cout << "Please type your boat draft: ";
 					cin >> boatDraft;
 
-					
-
+					//Inserting the input into linked list
 					boatlistNew->addBoatAtEnd(name, boatName,boatLength,boatDraft);
 
 					
-
-					//This will display
-					//boatlistNew->listAllNames();
-
-					//This is to save the pure object into file
-					//outFile.write((char*)boatOne, sizeof(Boat));
-
-					//Need to put into linked list first
-					//......
-
-					//outFile << name << "\t\t\t[BoatName: " << boatName << ", BoatLength: " << boatLength << ", BoatDraft: " << boatDraft << " ] " << endl;
 				}
 				outFile.close();
 				break;
@@ -93,24 +73,21 @@ int main() {
 			case 2:
 			{
 				cout << endl << "Case 2" << endl;
+				boatlistNew->removeBoat(2);
+
 				break;
 				
 			}
 
 			case 3:
 			{
-				//linkedlist 
-
-				boatlistNew->saveBoat();
 				boatlistNew->listAllNames();
 
 
 
-				//previous shit
 				//FoundLine = "";
 				//lineNumber = 0;
 
-				//cout << endl << "Case 3" << endl;
 
 				//// Connect to file for reading
 				//inFile.open("saveFile.txt");

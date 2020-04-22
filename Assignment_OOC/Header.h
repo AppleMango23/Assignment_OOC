@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+//This is class
 #ifndef boat_one
 #define boat_one
 class Boat
@@ -42,11 +42,14 @@ class BoatNode
 private:
 	Boat* bName;          // town's name    
 	BoatNode* next;            // link to next
+	BoatNode* pre;
 public:
 	BoatNode();                // no argument constructor
 	BoatNode(Boat* name);
-	void setNext(BoatNode* nextNode);
+	void setNext(BoatNode* nextNode);	
 	BoatNode* getNext();
+	void setPre(BoatNode* preNode);
+	BoatNode* getPre();
 	Boat* getName();
 };
 
@@ -61,7 +64,10 @@ public:
 	bool isEmpty();
 	void addBoatAtEnd(string name, string bName, int bLength, int bDraft);
 	void saveBoat();
+	void searchInfo(string line2);
 	void listAllNames();
+	void removeBoat(int position);
+	void temp(Boat* wordsOut);
 };
 #endif
 
