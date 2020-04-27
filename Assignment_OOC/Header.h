@@ -15,6 +15,8 @@ class Boat
 	string bName;
 	int bLength;
 	int bDraft;
+	int duration;
+	int moneyToPay;
 
 public:
 	Boat();
@@ -29,7 +31,14 @@ public:
 
 	void setDraft(int draftParam);
 	int getDraft();
+
+	void setDuration(int param);
+	int getDuration();
+
+	void setMoneyToPay(int param);
+	int getMoneyToPay();
 };
+
 #endif
 
 #ifndef LISTOFBOATS_H
@@ -40,17 +49,18 @@ using namespace std;
 class BoatNode
 {
 private:
-	Boat* bName;          // town's name    
-	BoatNode* next;            // link to next
+	Boat* bName;          
+	BoatNode* next;           
 	BoatNode* pre;
 public:
-	BoatNode();                // no argument constructor
+	BoatNode();               
 	BoatNode(Boat* name);
 	void setNext(BoatNode* nextNode);	
 	BoatNode* getNext();
 	void setPre(BoatNode* preNode);
 	BoatNode* getPre();
 	Boat* getName();
+	
 };
 
 
@@ -58,16 +68,16 @@ class BoatList
 {
 private:
 	BoatNode* start, * end;
-
+	
 public:
 	BoatList();
 	bool isEmpty();
-	void addBoatAtEnd(string name, string bName, int bLength, int bDraft);
+	void addBoatAtEnd(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay);
 	void saveBoat();
-	void searchInfo(string line2);
-	BoatList* listAllNames();
-	void removeBoat(int position);
-	void temp(BoatList* test,int deleteNum);
+	BoatList* readFile();
+	int listAllNames(string param);
+	BoatList* removeBoat(int position);
+	BoatList* temp(BoatList* test,int deleteNum);
 };
 #endif
 

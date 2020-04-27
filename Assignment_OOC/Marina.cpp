@@ -1,6 +1,7 @@
 #include "Header.h"
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -49,6 +50,26 @@ int Boat::getDraft()
 	return bDraft;
 }
 
+void Boat::setDuration(int param)
+{
+	duration = param;
+}
+
+int Boat::getDuration()
+{
+	return duration;
+}
+
+void Boat::setMoneyToPay(int param)
+{
+	moneyToPay = param;
+}
+
+int Boat::getMoneyToPay()
+{
+	return moneyToPay;
+}
+
 //---------------------------Link list-------------------------------
 BoatNode::BoatNode()
 {
@@ -91,6 +112,7 @@ BoatList::BoatList()
 {
 	start = NULL;   // both set to NULL
 	end = NULL;
+	
 }
 
 bool BoatList::isEmpty()
@@ -98,7 +120,7 @@ bool BoatList::isEmpty()
 	return start == NULL;
 }
 
-void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
+void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft, int duration, int moneyToPay)
 {
 	BoatNode* current;
 	Boat* boatOne = new Boat();
@@ -107,14 +129,20 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
 	boatOne->setDraft(bDraft);
-	
+
+	/*cout << duration;
+	cout << moneyToPay;*/
+
+	boatOne->setDuration(duration);
+	boatOne->setMoneyToPay(moneyToPay);
+
 	//Start
 	if (end == NULL)       // if list is empty
 	{
 		current = new BoatNode(boatOne);  // allocate memory
 		start = current;               // change start 
 		end = current;				  // and end
-	}	
+	}
 	//end
 	else
 	{
@@ -125,21 +153,20 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft)
 	}
 }
 
-void BoatList::removeBoat(int position)
+BoatList* BoatList::removeBoat(int position)
 {
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
-	BoatList* tempTesting = new BoatList();
 	int counterSet=1;
+	BoatList* temptesting = new BoatList();
 	ofstream outFile;  //For write
-
 
 	//File clearing
 	outFile.open("saveFile.txt", std::ofstream::out | std::ofstream::trunc);
 	outFile.close();
 
+	//For new save
 	outFile.open("saveFile.txt", ios::out | ios::app);
-
 	if (!isEmpty())
 	{
 		current = start;
@@ -148,11 +175,14 @@ void BoatList::removeBoat(int position)
 			if (counterSet != position)
 			{
 				wordsOut = (current->getName());
-				cout << "Position: " << position << endl << "CounterSet: " << counterSet << endl;
 				outFile << wordsOut->getName()
 					<< "\n" << wordsOut->getBName()
 					<< "\n" << wordsOut->getLength()
-					<< "\n" << wordsOut->getDraft() << endl << endl;
+					<< "\n" << wordsOut->getDraft() 
+					<< "\n" << wordsOut->getDuration()
+					<< "\n" << wordsOut->getMoneyToPay()
+					<< endl << endl;
+				temptesting->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), wordsOut->getLength(), wordsOut->getDraft(),wordsOut->getDuration(),wordsOut->getMoneyToPay());
 				current = current->getNext();
 			}
 			else {
@@ -161,19 +191,18 @@ void BoatList::removeBoat(int position)
 			}
 			counterSet++;
 		}
-		
 	}
-
 	outFile.close();
-
 	
+	return temptesting;
 
 	
 }
 
-void BoatList::temp(BoatList* tempTesting,int deleteNum)
+//Not really useful can be delete
+BoatList* BoatList::temp(BoatList* tempTesting,int deleteNum)
 {
-	tempTesting->removeBoat(deleteNum);
+	return tempTesting->removeBoat(deleteNum);
 }
 
 void BoatList::saveBoat()
@@ -182,35 +211,33 @@ void BoatList::saveBoat()
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
 	ofstream outFile;  //For write
-	int x = 0;
 
 	//File clearing
 	outFile.open("saveFile.txt", std::ofstream::out | std::ofstream::trunc);
 	outFile.close();
 
 	outFile.open("saveFile.txt", ios::out | ios::app);
-
-	cout << "save part below" << endl;
 	if (!isEmpty())
 	{
 		current = start;
-		
 		while (current != NULL)
 		{
 			wordsOut = (current->getName());
-			cout << wordsOut->getName() 
+			outFile << wordsOut->getName() 
 				<< "\n" << wordsOut->getBName()
 				<< "\n" << wordsOut->getLength() 
-				<< "\n" << wordsOut->getDraft() << endl << endl;
+				<< "\n" << wordsOut->getDraft() 
+				<< "\n" << wordsOut->getDuration()
+				<< "\n" << wordsOut->getMoneyToPay()
+				<< endl << endl;
 			current = current->getNext();
-			x++;
 		}
-		cout <<"======="<< x << " customer saved=======" << endl;
+		cout <<"<<<<<<=======customer saved=======>>>>>>" << endl;
 	}
 	outFile.close();
 }
 
-BoatList* BoatList::listAllNames()
+BoatList* BoatList::readFile()
 {
 	//This one is for the no linked list der output
 	Boat* wordsOut = new Boat();
@@ -218,7 +245,8 @@ BoatList* BoatList::listAllNames()
 	string line2;
 	int counter = 0;
 	int number;
-	BoatList* Temptest = new BoatList();
+	BoatList* TempList = new BoatList();
+	int totalLength = 0;
 
 	inFile.open("saveFile.txt", ios::out | ios::app);
 	while (getline(inFile, line2)) {
@@ -234,14 +262,56 @@ BoatList* BoatList::listAllNames()
 		}
 		if (counter == 4) {
 			wordsOut->setDraft(stoi(line2));
-			Temptest->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), wordsOut->getDraft(), wordsOut->getLength());
 		}
 		if (counter == 5) {
+			wordsOut->setDuration(stoi(line2));
+		}
+		if (counter == 6) {
+			wordsOut->setMoneyToPay(stoi(line2));
+			TempList->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), wordsOut->getLength(), wordsOut->getDraft(), wordsOut->getDuration(), wordsOut->getMoneyToPay());
+		}
+		if (counter == 7) {
 			counter = 0;
 		}
 	}
 	inFile.close();
-
-	return Temptest;
+	
+	return TempList;
 }
 
+int BoatList::listAllNames(string param)
+{
+	BoatNode* current;
+	Boat* wordsOut = new Boat();
+	int jumlah = 0;
+	int x = 1;
+
+	if (!isEmpty())
+	{
+		current = start;
+		
+		while (current != NULL)
+		{
+			wordsOut = (current->getName());
+			if (param == "show") {
+				cout << x << ". "<<setw(14)<<wordsOut->getName()
+				<< setw(20)<< wordsOut->getBName()
+				<< setw(20) << wordsOut->getLength()
+				<< "m"
+				<< setw(10) << wordsOut->getDraft()
+				<< "m"
+				<< setw(10) << wordsOut->getDuration()
+				<< " months"
+				<< setw(10) << wordsOut->getMoneyToPay() 
+				<< " pounds"
+				<< endl;
+
+				x++;
+			}
+			current = current->getNext();
+			jumlah += wordsOut->getLength();
+		}
+	}
+
+	return jumlah;
+}
