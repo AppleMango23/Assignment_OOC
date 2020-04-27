@@ -150,7 +150,7 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft,
 {
 	BoatNode* current;
 	Boat* boatOne = new Boat();
-
+	
 	boatOne->setName(name);
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);

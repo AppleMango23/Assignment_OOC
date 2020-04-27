@@ -126,9 +126,25 @@ int main() {
 				cout << endl << "SIMULATOR MODE" << endl;
 				//havent implement
 
+				int decision3 = 0;
 
+				while (decision3 != 3)
+				{
+					cout << "What you want to do: " << endl;
+					cout << "1. Record a new booking" << endl;
+					cout << "2. Delete a record" << endl;
+					cout << "3. Exit" << endl;
 
+					//Random number
+					decision3 = (rand() % 3) + 1;
+					cout << "decision: " << decision3 << endl;
 
+					
+
+				}
+				//boatlistNew->saveBoat();
+				cout << "\n=============================================================" << endl;
+				cout << "\t\tSimulator Application exited and saved" << endl << endl;
 				break;
 			}
 		}

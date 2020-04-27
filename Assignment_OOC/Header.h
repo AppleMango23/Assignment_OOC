@@ -46,21 +46,21 @@ public:
 //Derived class for boat
 class narrow : public Boat      	
 {
-	int numpassengers;            	
+	string boatType;            	
 public:
 	narrow();
 };
 
 class sailing : public Boat
 {
-	float height;
+	string boatType;
 public:
 	sailing();
 };
 
 class motor : public Boat
 {
-	float height;
+	string boatType;
 public:
 	motor();
 };
