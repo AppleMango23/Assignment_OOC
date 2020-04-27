@@ -13,6 +13,7 @@ class Boat
 {
 	string name;
 	string bName;
+	string boatType;
 	int bLength;
 	int bDraft;
 	int duration;
@@ -37,8 +38,32 @@ public:
 
 	void setMoneyToPay(int param);
 	int getMoneyToPay();
+
+	void setBoatType(string param);
+	string getBoatType();
 };
 
+//Derived class for boat
+class narrow : public Boat      	
+{
+	int numpassengers;            	
+public:
+	narrow();
+};
+
+class sailing : public Boat
+{
+	float height;
+public:
+	sailing();
+};
+
+class motor : public Boat
+{
+	float height;
+public:
+	motor();
+};
 #endif
 
 #ifndef LISTOFBOATS_H
@@ -72,7 +97,7 @@ private:
 public:
 	BoatList();
 	bool isEmpty();
-	void addBoatAtEnd(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay);
+	void addBoatAtEnd(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay, string boatType);
 	void saveBoat();
 	BoatList* readFile();
 	int listAllNames(string param);

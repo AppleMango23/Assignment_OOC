@@ -4,6 +4,7 @@ laBoat
 4
 4
 190
+Motor
 
 NewTest
 Testi
@@ -11,6 +12,7 @@ Testi
 3
 4
 190
+Sailing
 
 Kaka
 Kalo
@@ -18,6 +20,7 @@ Kalo
 4
 1
 160
+Motor
 
 Mommy
 mama
@@ -25,4 +28,5 @@ mama
 2
 1
 110
+Narrow
 

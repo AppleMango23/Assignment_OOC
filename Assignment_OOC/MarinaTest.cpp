@@ -13,7 +13,7 @@ int main() {
 	BoatList* boatlistNew = new BoatList();
 
 	// Define variable for data to be read from file
-	string name,boatName;
+	string name,boatName,boatType;
 	int boatLength,boatDraft, duration, moneyToPay;
 
 	//For delete mode
@@ -22,13 +22,14 @@ int main() {
 	cout << "=======Welcome to Marina Bay=======" << endl;
 	boatlistNew=boatlistNew->readFile();
 
-	while(decision != 4)
+	while(decision != 5)
 	{
 		cout << "What you want to do: " << endl;
 		cout << "1. Record a new booking" << endl;
 		cout << "2. Delete a record" << endl;
 		cout << "3. Display all record (Available marina space)" << endl;
-		cout << "4. Exit the program" << endl << endl;
+		cout << "4. Simulator" << endl;
+		cout << "5. Exit the program" << endl << endl;
 		cout << "Decision: ";
 		cin >> decision;
 
@@ -42,7 +43,7 @@ int main() {
 				cout << endl << "ADD CUSTOMER MODE" << endl;
 
 				if (boatlistNew->listAllNames("return") >= 150) {
-					cout<<"Marina is full"<<endl;
+					cout<<"I am so sorry the Marina is full"<<endl;
 				}
 				else
 				{
@@ -71,14 +72,15 @@ int main() {
 								cin >> name;
 								cout << "Please type your boat name: ";
 								cin >> boatName;
-
+								cout << "Please enter your boat type(Sailing, Narrow, Motor): ";
+								cin >> boatType;
 
 								if (boatlistNew->listAllNames("return") + boatLength > 150) {
-									cout << "The marina is full" << endl;
+									cout << "I am so sorry the Marina is full" << endl;
 								}
 								else
 								{
-									boatlistNew->addBoatAtEnd(name, boatName, boatLength, boatDraft, duration, moneyToPay);
+									boatlistNew->addBoatAtEnd(name, boatName, boatLength, boatDraft, duration, moneyToPay, boatType);
 									cout << "Congratulations you added 1!" << endl;
 								}
 							}
@@ -110,10 +112,23 @@ int main() {
 				cout << endl << "DISPLAY MODE" << endl;
 				cout << "No" << setw(14) << "Owner" << setw(20) << "Boat"
 					<< setw(23) << "Length" << setw(14) << "Shallow"
-					<< setw(14) << "Duration" << setw(14) << "Cost" << endl;
+					<< setw(14) << "Duration" << setw(14) << "Cost" 
+					<< setw(14) << "Type"
+					<< endl;
 				boatlistNew->listAllNames("show");
 				cout << "\nThe occupied space are: " << boatlistNew->listAllNames("return") << endl;
 				cout <<"The available space are: "<<150-boatlistNew->listAllNames("return") << endl;
+				break;
+			}
+
+			case 4:
+			{
+				cout << endl << "SIMULATOR MODE" << endl;
+				//havent implement
+
+
+
+
 				break;
 			}
 		}

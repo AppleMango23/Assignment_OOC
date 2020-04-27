@@ -70,6 +70,32 @@ int Boat::getMoneyToPay()
 	return moneyToPay;
 }
 
+void Boat::setBoatType(string param)
+{
+	boatType = param;
+}
+
+string Boat::getBoatType()
+{
+	return boatType;
+}
+//--------------------------Inheritance-----------------------------
+
+narrow::narrow() : Boat()
+{
+
+}
+
+sailing::sailing() : Boat()
+{
+
+}
+
+motor::motor() : Boat()
+{
+
+}
+
 //---------------------------Link list-------------------------------
 BoatNode::BoatNode()
 {
@@ -120,7 +146,7 @@ bool BoatList::isEmpty()
 	return start == NULL;
 }
 
-void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft, int duration, int moneyToPay)
+void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft, int duration, int moneyToPay, string boatType)
 {
 	BoatNode* current;
 	Boat* boatOne = new Boat();
@@ -129,12 +155,9 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft,
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
 	boatOne->setDraft(bDraft);
-
-	/*cout << duration;
-	cout << moneyToPay;*/
-
 	boatOne->setDuration(duration);
 	boatOne->setMoneyToPay(moneyToPay);
+	boatOne->setBoatType(boatType);
 
 	//Start
 	if (end == NULL)       // if list is empty
@@ -181,8 +204,12 @@ BoatList* BoatList::removeBoat(int position)
 					<< "\n" << wordsOut->getDraft() 
 					<< "\n" << wordsOut->getDuration()
 					<< "\n" << wordsOut->getMoneyToPay()
+					<< "\n" << wordsOut->getBoatType()
 					<< endl << endl;
-				temptesting->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), wordsOut->getLength(), wordsOut->getDraft(),wordsOut->getDuration(),wordsOut->getMoneyToPay());
+				temptesting->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(),
+										wordsOut->getLength(), wordsOut->getDraft(),
+										wordsOut->getDuration(),wordsOut->getMoneyToPay(),
+										wordsOut->getBoatType());
 				current = current->getNext();
 			}
 			else {
@@ -193,10 +220,7 @@ BoatList* BoatList::removeBoat(int position)
 		}
 	}
 	outFile.close();
-	
 	return temptesting;
-
-	
 }
 
 //Not really useful can be delete
@@ -229,6 +253,7 @@ void BoatList::saveBoat()
 				<< "\n" << wordsOut->getDraft() 
 				<< "\n" << wordsOut->getDuration()
 				<< "\n" << wordsOut->getMoneyToPay()
+				<< "\n" << wordsOut->getBoatType()
 				<< endl << endl;
 			current = current->getNext();
 		}
@@ -268,14 +293,19 @@ BoatList* BoatList::readFile()
 		}
 		if (counter == 6) {
 			wordsOut->setMoneyToPay(stoi(line2));
-			TempList->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), wordsOut->getLength(), wordsOut->getDraft(), wordsOut->getDuration(), wordsOut->getMoneyToPay());
 		}
 		if (counter == 7) {
+			wordsOut->setBoatType(line2);
+			TempList->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), 
+								wordsOut->getLength(), wordsOut->getDraft(),
+								wordsOut->getDuration(), wordsOut->getMoneyToPay(),
+								wordsOut->getBoatType());
+		}
+		if (counter == 8) {
 			counter = 0;
 		}
 	}
 	inFile.close();
-	
 	return TempList;
 }
 
@@ -304,6 +334,7 @@ int BoatList::listAllNames(string param)
 				<< " months"
 				<< setw(10) << wordsOut->getMoneyToPay() 
 				<< " pounds"
+				<< setw(13) << wordsOut->getBoatType()
 				<< endl;
 
 				x++;
