@@ -18,12 +18,14 @@ int main() {
 	string name,boatName,line;
 	int boatLength,boatDraft,x=1;
 	string searchName;
-	int lineNumber = 0;
+	int deleteNum;
 	string line2;
 	string FoundLine = "";
 	
 
 	cout << "=======Welcome to Marina Bay=======" << endl;
+	boatlistNew=boatlistNew->listAllNames();
+
 	while(decision != 4)
 	{
 		cout << "What you want to do: " << endl;
@@ -50,8 +52,6 @@ int main() {
 					cout << "Error opening file\n" << endl;
 				else
 				{
-					//cin.ignore();
-					//getline(cin, line);
 					cout << "Please owner name: ";
 					cin >> name;
 					cout << "Please type your boat name: ";
@@ -63,8 +63,6 @@ int main() {
 
 					//Inserting the input into linked list
 					boatlistNew->addBoatAtEnd(name, boatName,boatLength,boatDraft);
-
-					
 				}
 				outFile.close();
 				break;
@@ -72,22 +70,18 @@ int main() {
 
 			case 2:
 			{
-				cout << endl << "Case 2" << endl;
-				boatlistNew->removeBoat(2);
-
+				cout << endl << "DELETE MODE" << endl;
+				cout << "The order u want to delete is:";
+				cin >> deleteNum;
+				boatlistNew->temp(boatlistNew,deleteNum);
 				break;
-				
 			}
 
 			case 3:
 			{
 				boatlistNew->listAllNames();
-
-
-
 				//FoundLine = "";
 				//lineNumber = 0;
-
 
 				//// Connect to file for reading
 				//inFile.open("saveFile.txt");
@@ -134,14 +128,7 @@ int main() {
 				//		cout << "Found line: " << FoundLine << endl;
 				//	}	
 
-				//	/*delete boatOne
-				//	Boat* boatRead = new Boat();*/
-
-				//	/*cout << "A city -> ";
-				//	inFile.read((char*)boatOne, sizeof(Boat));
-				//	cout << boatOne->getName() << endl;*/
-				//}
-				//inFile.close();
+				
 				break;
 			}
 		}

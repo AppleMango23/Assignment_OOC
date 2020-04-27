@@ -65,9 +65,9 @@ public:
 	void addBoatAtEnd(string name, string bName, int bLength, int bDraft);
 	void saveBoat();
 	void searchInfo(string line2);
-	void listAllNames();
+	BoatList* listAllNames();
 	void removeBoat(int position);
-	void temp(Boat* wordsOut);
+	void temp(BoatList* test,int deleteNum);
 };
 #endif
 
