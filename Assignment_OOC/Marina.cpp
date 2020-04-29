@@ -225,12 +225,6 @@ BoatList* BoatList::removeBoat(int position)
 	return temptesting;
 }
 
-//Not really useful can be delete
-BoatList* BoatList::temp(BoatList* tempTesting,int deleteNum)
-{
-	return tempTesting->removeBoat(deleteNum);
-}
-
 void BoatList::saveBoat()
 {
 	//This one is for the no linked list der output
@@ -327,7 +321,7 @@ int BoatList::listAllNames(string param)
 			wordsOut = (current->getName());
 
 			if (param == "show") {
-				cout << x << ". "<<setw(14)<<wordsOut->getName()
+				cout << setw(2) << x  <<". " <<setw(14)<<wordsOut->getName()
 				<< setw(20)<< wordsOut->getBName()
 				<< setw(20) << wordsOut->getLength()
 				<< "m"

@@ -102,7 +102,6 @@ public:
 	BoatList* readFile();
 	int listAllNames(string param);
 	BoatList* removeBoat(int position);
-	BoatList* temp(BoatList* test,int deleteNum);
 };
 #endif
 

@@ -107,7 +107,7 @@ int main() {
 				cout << endl << "DELETE MODE" << endl;
 				cout << "The order u want to delete is:";
 				cin >> deleteNum;
-				boatlistNew = boatlistNew->temp(boatlistNew, deleteNum);
+				boatlistNew = boatlistNew->removeBoat(deleteNum);
 				break;
 			}
 
@@ -261,7 +261,7 @@ int main() {
 							cout << endl << "DELETE MODE" << endl;
 							deleteNum = (rand() % boatlistNew->listAllNames("quantity")) + 1;
 							cout << "The order u want to delete is:" << deleteNum << endl;
-							boatlistNew = boatlistNew->temp(boatlistNew, deleteNum);
+							boatlistNew = boatlistNew->removeBoat(deleteNum);
 							break;
 						}
 						cout << endl;
