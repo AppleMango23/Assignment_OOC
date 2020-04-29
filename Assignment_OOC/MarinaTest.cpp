@@ -81,8 +81,12 @@ int main() {
 								else
 								{
 									boatlistNew->addBoatAtEnd(name, boatName, boatLength, boatDraft, duration, moneyToPay, boatType);
-									cout << "Congratulations you added 1!" << endl;
+									cout << "Congratulations you added 1!" << endl <<endl;
 								}
+							}
+							else
+							{
+								cout << "Order rejected." << endl << endl;
 							}
 						}
 						else
@@ -124,9 +128,9 @@ int main() {
 			case 4:
 			{
 				cout << endl << "SIMULATOR MODE" << endl;
-				//havent implement
 
 				int decision3 = 0;
+				int nameRand, boatNameRand, boatTypeRand;
 
 				while (decision3 != 3)
 				{
@@ -135,14 +139,136 @@ int main() {
 					cout << "2. Delete a record" << endl;
 					cout << "3. Exit" << endl;
 
-					//Random number
+					//Decision on 1 only selection 
 					decision3 = (rand() % 3) + 1;
 					cout << "decision: " << decision3 << endl;
 
-					
+					switch (decision3)
+					{
+						default:
+							break;
 
+						case 1:
+						{
+							cout << endl << "ADD CUSTOMER MODE" << endl;
+
+							if (boatlistNew->listAllNames("return") >= 150) {
+								cout << "I am so sorry the Marina is full" << endl << endl;
+							}
+							else
+							{
+								boatLength = (rand() % 16) + 1;
+								cout << "Please type your boat length: "<< boatLength << endl;
+
+								boatDraft = (rand() % 6) + 1;
+								cout << "Please type your boat draft: " << boatDraft << endl;
+
+								if (boatLength <= 15)
+								{
+									if (boatDraft <= 5)
+									{
+										duration = (rand() % 6) + 1;
+										cout << "How long is the duration customer want to stay: " << duration <<endl;
+										moneyToPay = (boatLength * 10) + (duration * 10);
+										cout << "10 pounds per meter and per month" << endl;
+										cout << "Price = " << moneyToPay << " pounds" << endl << endl;
+										decision2 = (rand() % 2) + 1;
+										cout << "(press 1 say yes, press 2 say no)" << endl;
+										cout << decision2 << endl;
+										if (decision2 == 1)
+										{
+											cout << "Okay you are in!" << endl << endl;
+											nameRand = (rand() % 2) + 1;
+											if (nameRand == 1)
+											{
+												name = "Noah";
+											}
+											else {
+												if (nameRand == 2)
+												{
+													name = "John";
+												}
+												else
+												{
+													name = "Mandy";
+												}
+											}
+											cout << "Please owner name: " << name << endl;
+
+											boatNameRand = (rand() % 2) + 1;
+											if (boatNameRand == 1)
+											{
+												boatName = "BabyCool";
+											}
+											else {
+												if (boatNameRand == 2)
+												{
+													boatName = "Titanic";
+												}
+												else
+												{
+													boatName = "Jacaobo";
+												}
+											}
+											cout << "Please type your boat name: " << boatName << endl;
+
+											boatTypeRand = (rand() % 2) + 1;
+											if (boatTypeRand == 1)
+											{
+												boatType = "Sailing";
+											}
+											else {
+												if (boatTypeRand == 2)
+												{
+													boatType = "Narrow";
+												}
+												else
+												{
+													boatType = "Motor";
+												}
+											}
+											cout << "Please enter your boat type(Sailing, Narrow, Motor): " << boatType << endl;
+
+											if (boatlistNew->listAllNames("return") + boatLength > 150) {
+												cout << "I am so sorry the Marina is full" << endl << endl;
+											}
+											else
+											{
+												boatlistNew->addBoatAtEnd(name, boatName, boatLength, boatDraft, duration, moneyToPay, boatType);
+												cout << "Congratulations you added 1!" << endl << endl;
+											}
+										}
+										else
+										{
+											cout << "Order rejected." << endl << endl;
+										}
+									}
+									else
+									{
+										cout << "Sorry your shallow exceeded the maximum." << endl <<endl;
+									}
+								}
+								else
+								{
+									cout << "Sorry your boat length exceeded the maximum length." << endl << endl;
+								}
+							}
+							break;
+						}
+
+						case 2:
+						{
+							cout << endl << "DELETE MODE" << endl;
+							deleteNum = (rand() % boatlistNew->listAllNames("quantity")) + 1;
+							cout << "The order u want to delete is:" << deleteNum << endl;
+							boatlistNew = boatlistNew->temp(boatlistNew, deleteNum);
+							break;
+						}
+						cout << endl;
+					}
 				}
-				//boatlistNew->saveBoat();
+				//Saving parts
+				boatlistNew->saveBoat();
 				cout << "\n=============================================================" << endl;
 				cout << "\t\tSimulator Application exited and saved" << endl << endl;
 				break;

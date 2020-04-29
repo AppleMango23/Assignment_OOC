@@ -1,18 +1,10 @@
-NewNoah
+Noah
 laBoat
 15
 4
 4
 190
 Motor
-
-NewTest
-Testi
-15
-3
-4
-190
-Sailing
 
 Kaka
 Kalo
@@ -29,4 +21,12 @@ mama
 1
 110
 Narrow
+
+Jaja
+bojaja
+14
+5
+5
+190
+Motor
 

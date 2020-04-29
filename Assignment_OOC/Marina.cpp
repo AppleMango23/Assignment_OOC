@@ -220,6 +220,8 @@ BoatList* BoatList::removeBoat(int position)
 		}
 	}
 	outFile.close();
+
+	cout << "Remove successfully." << endl<<endl;
 	return temptesting;
 }
 
@@ -257,7 +259,7 @@ void BoatList::saveBoat()
 				<< endl << endl;
 			current = current->getNext();
 		}
-		cout <<"<<<<<<=======customer saved=======>>>>>>" << endl;
+		cout <<"<<<<<<<<<<<<<<<<<<<<<< customer saved >>>>>>>>>>>>>>>>>>>>>>" << endl;
 	}
 	outFile.close();
 }
@@ -323,6 +325,7 @@ int BoatList::listAllNames(string param)
 		while (current != NULL)
 		{
 			wordsOut = (current->getName());
+
 			if (param == "show") {
 				cout << x << ". "<<setw(14)<<wordsOut->getName()
 				<< setw(20)<< wordsOut->getBName()
@@ -336,11 +339,14 @@ int BoatList::listAllNames(string param)
 				<< " pounds"
 				<< setw(13) << wordsOut->getBoatType()
 				<< endl;
-
-				x++;
 			}
+			x++;
 			current = current->getNext();
 			jumlah += wordsOut->getLength();
+
+			if (param == "quantity") {
+				jumlah = x;
+			}
 		}
 	}
 
