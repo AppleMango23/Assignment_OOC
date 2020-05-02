@@ -151,6 +151,8 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft,
 	BoatNode* current;
 	Boat* boatOne = new Boat();
 	
+	
+	
 	boatOne->setName(name);
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
@@ -176,12 +178,33 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft,
 	}
 }
 
+void BoatList::addBoatAtStart(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay, string boatType)
+{
+	BoatNode* current;
+	Boat* boatOne = new Boat();
+
+	boatOne->setName(name);
+	boatOne->setBoatName(bName);
+	boatOne->setLength(bLength);
+	boatOne->setDraft(bDraft);
+	boatOne->setDuration(duration);
+	boatOne->setMoneyToPay(moneyToPay);
+	boatOne->setBoatType(boatType);
+
+
+	current = new BoatNode(boatOne);   // allocate memory		
+	current->setNext(start);          // change end's next
+	start = current;                  // change end
+}
+
+
 BoatList* BoatList::removeBoat(int position)
 {
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
 	int counterSet=1;
 	BoatList* temptesting = new BoatList();
+	BoatList* temptesting1 = new BoatList();
 	ofstream outFile;  //For write
 
 	//File clearing
@@ -195,9 +218,14 @@ BoatList* BoatList::removeBoat(int position)
 		current = start;
 		while (current != NULL)
 		{	
+			wordsOut = (current->getName());
+			temptesting1->addBoatAtStart(wordsOut->getName(), wordsOut->getBName(),
+				wordsOut->getLength(), wordsOut->getDraft(),
+				wordsOut->getDuration(), wordsOut->getMoneyToPay(),
+				wordsOut->getBoatType());
 			if (counterSet != position)
 			{
-				wordsOut = (current->getName());
+				
 				outFile << wordsOut->getName()
 					<< "\n" << wordsOut->getBName()
 					<< "\n" << wordsOut->getLength()
@@ -210,6 +238,7 @@ BoatList* BoatList::removeBoat(int position)
 										wordsOut->getLength(), wordsOut->getDraft(),
 										wordsOut->getDuration(),wordsOut->getMoneyToPay(),
 										wordsOut->getBoatType());
+				
 				current = current->getNext();
 			}
 			else {
@@ -221,7 +250,15 @@ BoatList* BoatList::removeBoat(int position)
 	}
 	outFile.close();
 
-	cout << "Remove successfully." << endl<<endl;
+	cout << endl;
+	cout << "These boat had move to holding bay" << endl;
+	temptesting1->listAllNames(to_string(position));
+	cout << "\nAnd they move back to marina again" << endl;
+	temptesting->listAllNames("show");
+
+	
+
+	cout << "Order number "<< position << " successfully removed." << endl<<endl;
 	return temptesting;
 }
 
@@ -321,19 +358,21 @@ int BoatList::listAllNames(string param)
 			wordsOut = (current->getName());
 
 			if (param == "show") {
-				cout << setw(2) << x  <<". " <<setw(14)<<wordsOut->getName()
-				<< setw(20)<< wordsOut->getBName()
-				<< setw(20) << wordsOut->getLength()
-				<< "m"
-				<< setw(10) << wordsOut->getDraft()
-				<< "m"
-				<< setw(10) << wordsOut->getDuration()
-				<< " months"
-				<< setw(10) << wordsOut->getMoneyToPay() 
-				<< " pounds"
-				<< setw(13) << wordsOut->getBoatType()
-				<< endl;
+				cout << setw(2) << x << ". " << setw(14) << wordsOut->getName()
+					<< setw(20) << wordsOut->getBName()
+					<< setw(20) << wordsOut->getLength()
+					<< "m"
+					<< setw(10) << wordsOut->getDraft()
+					<< "m"
+					<< setw(10) << wordsOut->getDuration()
+					<< " months"
+					<< setw(10) << wordsOut->getMoneyToPay()
+					<< " pounds"
+					<< setw(13) << wordsOut->getBoatType()
+					<< endl;
 			}
+
+			
 			x++;
 			current = current->getNext();
 			jumlah += wordsOut->getLength();
@@ -342,7 +381,51 @@ int BoatList::listAllNames(string param)
 				jumlah = x;
 			}
 		}
+
+		if (isalpha(param[0]))
+		{
+			//cout << "This is abc";
+		}
+		else
+		{
+			current = start;
+			int y = x-1;
+			int aa = 1;
+
+			while (current != NULL)
+			{
+				wordsOut = (current->getName());
+
+				
+				cout << setw(2) << y << ". " << setw(14) << wordsOut->getName()
+					<< setw(20) << wordsOut->getBName()
+					<< setw(20) << wordsOut->getLength()
+					<< "m"
+					<< setw(10) << wordsOut->getDraft()
+					<< "m"
+					<< setw(10) << wordsOut->getDuration()
+					<< " months"
+					<< setw(10) << wordsOut->getMoneyToPay()
+					<< " pounds"
+					<< setw(13) << wordsOut->getBoatType()
+					<< endl;
+				
+
+
+				y--;
+				current = current->getNext();
+
+				int num1 = stoi(param);
+				if (num1 == y)
+				{
+					break;
+				}
+			}
+
+			
+		}
 	}
 
 	return jumlah;
 }
+

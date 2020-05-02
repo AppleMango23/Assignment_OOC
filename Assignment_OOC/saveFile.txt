@@ -6,22 +6,6 @@ laBoat
 190
 Motor
 
-Kaka
-Kalo
-15
-4
-1
-160
-Motor
-
-Mommy
-mama
-10
-2
-1
-110
-Narrow
-
 Jaja
 bojaja
 14
@@ -85,3 +69,4 @@ America
 5
 190
 Motor
+

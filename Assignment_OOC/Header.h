@@ -97,6 +97,7 @@ private:
 public:
 	BoatList();
 	bool isEmpty();
+	void addBoatAtStart(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay, string boatType);
 	void addBoatAtEnd(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay, string boatType);
 	void saveBoat();
 	BoatList* readFile();
