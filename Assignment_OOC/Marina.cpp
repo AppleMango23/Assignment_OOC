@@ -253,11 +253,8 @@ BoatList* BoatList::removeBoat(int position)
 	cout << endl;
 	cout << "These boat had move to holding bay" << endl;
 	temptesting1->listAllNames(to_string(position));
-	cout << "\nAnd they move back to marina again" << endl;
+	cout << "\nAfter the holding bay boat move back to marina" << endl;
 	temptesting->listAllNames("show");
-
-	
-
 	cout << "Order number "<< position << " successfully removed." << endl<<endl;
 	return temptesting;
 }

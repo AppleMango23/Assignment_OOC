@@ -1,4 +1,3 @@
-// Example C++ Arrays of students
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
@@ -6,11 +5,12 @@
 
 using namespace std;
 
-//This is class
+//This is class where we are going to use to store the user's information
 #ifndef boat_one
 #define boat_one
 class Boat
 {
+	//These are the private variables
 	string name;
 	string bName;
 	string boatType;
