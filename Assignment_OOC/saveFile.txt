@@ -22,14 +22,6 @@ Kakako
 160
 Motor
 
-Mandada
-Tukuku
-10
-2
-1
-110
-Narrow
-
 Totonado
 Titi
 14
@@ -69,4 +61,12 @@ America
 5
 190
 Motor
+
+Hello
+lala
+15
+5
+5
+200
+Sailing
 

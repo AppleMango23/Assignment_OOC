@@ -5,11 +5,13 @@
 
 using namespace std;
 
+//Constructor for Boat
 Boat::Boat()
 {
 	
 }
 
+//--------------------------Set and get-----------------------------
 void Boat::setName(string nameParam)
 {
 	name = nameParam;
@@ -79,8 +81,8 @@ string Boat::getBoatType()
 {
 	return boatType;
 }
-//--------------------------Inheritance-----------------------------
 
+//--------------------------Inheritance-----------------------------
 narrow::narrow() : Boat()
 {
 
@@ -106,7 +108,7 @@ BoatNode::BoatNode()
 BoatNode::BoatNode(Boat* name)
 {
 	bName = name;	// store name
-	next = NULL;                 // initialise next
+	next = NULL;    // initialise next
 }
 
 void BoatNode::setNext(BoatNode* nextNode)
@@ -117,16 +119,6 @@ void BoatNode::setNext(BoatNode* nextNode)
 BoatNode* BoatNode::getNext()
 {
 	return next;
-}
-
-void BoatNode::setPre(BoatNode* preNode)
-{
-	pre = preNode;  // change next node
-}
-
-BoatNode* BoatNode::getPre()
-{
-	return pre;
 }
 
 Boat* BoatNode::getName()
@@ -146,13 +138,15 @@ bool BoatList::isEmpty()
 	return start == NULL;
 }
 
+//--------------------------Features in system-----------------------------
+//In this function it will be adding order ( at end )into the list
 void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft, int duration, int moneyToPay, string boatType)
 {
+	//Declaring some variable and object for usage
 	BoatNode* current;
 	Boat* boatOne = new Boat();
-	
-	
-	
+
+	//Set all the variable into the class
 	boatOne->setName(name);
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
@@ -161,28 +155,30 @@ void BoatList::addBoatAtEnd(string name, string bName, int bLength , int bDraft,
 	boatOne->setMoneyToPay(moneyToPay);
 	boatOne->setBoatType(boatType);
 
-	//Start
+	//Allocate memory in start
 	if (end == NULL)       // if list is empty
 	{
 		current = new BoatNode(boatOne);  // allocate memory
 		start = current;               // change start 
 		end = current;				  // and end
 	}
-	//end
+	//Allocate memory in end
 	else
 	{
-		//Single linked list
 		current = new BoatNode(boatOne);   // allocate memory
 		end->setNext(current);          // change end's 
 		end = current;                  // change end
 	}
 }
 
+//In this function it will be adding order ( at start )into the list
 void BoatList::addBoatAtStart(string name, string bName, int bLength, int bDraft, int duration, int moneyToPay, string boatType)
 {
+	//Declaring variable
 	BoatNode* current;
 	Boat* boatOne = new Boat();
 
+	//Set the variable into to class
 	boatOne->setName(name);
 	boatOne->setBoatName(bName);
 	boatOne->setLength(bLength);
@@ -191,19 +187,20 @@ void BoatList::addBoatAtStart(string name, string bName, int bLength, int bDraft
 	boatOne->setMoneyToPay(moneyToPay);
 	boatOne->setBoatType(boatType);
 
-
+	//By doing this the linked list will add at start
 	current = new BoatNode(boatOne);   // allocate memory		
 	current->setNext(start);          // change end's next
 	start = current;                  // change end
 }
 
-
+//This function will take the position given by user and delete it
 BoatList* BoatList::removeBoat(int position)
 {
+	//Declaring
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
 	int counterSet=1;
-	BoatList* temptesting = new BoatList();
+	BoatList* temptesting = new BoatList(); 
 	BoatList* temptesting1 = new BoatList();
 	ofstream outFile;  //For write
 
@@ -219,13 +216,16 @@ BoatList* BoatList::removeBoat(int position)
 		while (current != NULL)
 		{	
 			wordsOut = (current->getName());
+
+			//This is for the start at front linked list adding
 			temptesting1->addBoatAtStart(wordsOut->getName(), wordsOut->getBName(),
 				wordsOut->getLength(), wordsOut->getDraft(),
 				wordsOut->getDuration(), wordsOut->getMoneyToPay(),
 				wordsOut->getBoatType());
+
 			if (counterSet != position)
 			{
-				
+				//This is to save the new data into the text file
 				outFile << wordsOut->getName()
 					<< "\n" << wordsOut->getBName()
 					<< "\n" << wordsOut->getLength()
@@ -234,34 +234,42 @@ BoatList* BoatList::removeBoat(int position)
 					<< "\n" << wordsOut->getMoneyToPay()
 					<< "\n" << wordsOut->getBoatType()
 					<< endl << endl;
+
+				//This is for the start at front linked list adding
 				temptesting->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(),
 										wordsOut->getLength(), wordsOut->getDraft(),
 										wordsOut->getDuration(),wordsOut->getMoneyToPay(),
 										wordsOut->getBoatType());
 				
+				//Change the indicator to next one
 				current = current->getNext();
 			}
 			else {
 				//Make it call next
 				current = current->getNext();
 			}
+			//counter counting
 			counterSet++;
 		}
 	}
 	outFile.close();
-
 	cout << endl;
 	cout << "These boat had move to holding bay" << endl;
+	
+	//The given position will be listing based on holding bay
 	temptesting1->listAllNames(to_string(position));
 	cout << "\nAfter the holding bay boat move back to marina" << endl;
+
+	//The given position will be listing based on marina bay after removed
 	temptesting->listAllNames("show");
-	cout << "Order number "<< position << " successfully removed." << endl<<endl;
+	cout << "Order number "<< position << " successfully removed. And the boat moved infront to fill the empty space." << endl<<endl;
 	return temptesting;
 }
 
+//Saving boat function
 void BoatList::saveBoat()
 {
-	//This one is for the no linked list der output
+	//Declaring
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
 	ofstream outFile;  //For write
@@ -270,10 +278,16 @@ void BoatList::saveBoat()
 	outFile.open("saveFile.txt", std::ofstream::out | std::ofstream::trunc);
 	outFile.close();
 
+	//Declaring which file to save
 	outFile.open("saveFile.txt", ios::out | ios::app);
+	
+	//If it is empty then do something
 	if (!isEmpty())
 	{
+		//Set it to the starting point
 		current = start;
+
+		//And list out everything
 		while (current != NULL)
 		{
 			wordsOut = (current->getName());
@@ -292,9 +306,10 @@ void BoatList::saveBoat()
 	outFile.close();
 }
 
+//Reading file function
 BoatList* BoatList::readFile()
 {
-	//This one is for the no linked list der output
+	//Declaring
 	Boat* wordsOut = new Boat();
 	ifstream inFile;  //For write
 	string line2;
@@ -303,6 +318,7 @@ BoatList* BoatList::readFile()
 	BoatList* TempList = new BoatList();
 	int totalLength = 0;
 
+	//Setting it into the class from the text file
 	inFile.open("saveFile.txt", ios::out | ios::app);
 	while (getline(inFile, line2)) {
 		counter++;
@@ -326,6 +342,8 @@ BoatList* BoatList::readFile()
 		}
 		if (counter == 7) {
 			wordsOut->setBoatType(line2);
+
+			//Add the boat into end
 			TempList->addBoatAtEnd(wordsOut->getName(), wordsOut->getBName(), 
 								wordsOut->getLength(), wordsOut->getDraft(),
 								wordsOut->getDuration(), wordsOut->getMoneyToPay(),
@@ -339,8 +357,10 @@ BoatList* BoatList::readFile()
 	return TempList;
 }
 
+//Listing out all the information from the class
 int BoatList::listAllNames(string param)
 {
+	//Declaring
 	BoatNode* current;
 	Boat* wordsOut = new Boat();
 	int jumlah = 0;
@@ -349,12 +369,13 @@ int BoatList::listAllNames(string param)
 	if (!isEmpty())
 	{
 		current = start;
-		
 		while (current != NULL)
 		{
 			wordsOut = (current->getName());
 
+			//To check it want to show or not
 			if (param == "show") {
+				//Output the information
 				cout << setw(2) << x << ". " << setw(14) << wordsOut->getName()
 					<< setw(20) << wordsOut->getBName()
 					<< setw(20) << wordsOut->getLength()
@@ -368,20 +389,22 @@ int BoatList::listAllNames(string param)
 					<< setw(13) << wordsOut->getBoatType()
 					<< endl;
 			}
-
-			
 			x++;
 			current = current->getNext();
+
+			//Adding up all the length that used
 			jumlah += wordsOut->getLength();
 
+			//If it want quantity then assign the x to the jumlah
 			if (param == "quantity") {
 				jumlah = x;
 			}
 		}
 
+		//Checking is it number or alphabet
 		if (isalpha(param[0]))
 		{
-			//cout << "This is abc";
+			//not doing anything
 		}
 		else
 		{
@@ -393,25 +416,23 @@ int BoatList::listAllNames(string param)
 			{
 				wordsOut = (current->getName());
 
-				
+				//Output the information
 				cout << setw(2) << y << ". " << setw(14) << wordsOut->getName()
-					<< setw(20) << wordsOut->getBName()
-					<< setw(20) << wordsOut->getLength()
-					<< "m"
-					<< setw(10) << wordsOut->getDraft()
-					<< "m"
-					<< setw(10) << wordsOut->getDuration()
-					<< " months"
-					<< setw(10) << wordsOut->getMoneyToPay()
-					<< " pounds"
-					<< setw(13) << wordsOut->getBoatType()
-					<< endl;
-				
-
-
+				<< setw(20) << wordsOut->getBName()
+				<< setw(20) << wordsOut->getLength()
+				<< "m"
+				<< setw(10) << wordsOut->getDraft()
+				<< "m"
+				<< setw(10) << wordsOut->getDuration()
+				<< " months"
+				<< setw(10) << wordsOut->getMoneyToPay()
+				<< " pounds"
+				<< setw(13) << wordsOut->getBoatType()
+				<< endl;
 				y--;
 				current = current->getNext();
 
+				//Use the position given by user and get out of the while loop if reached the same number
 				int num1 = stoi(param);
 				if (num1 == y)
 				{
@@ -423,6 +444,7 @@ int BoatList::listAllNames(string param)
 		}
 	}
 
+	//Returning variable for usage
 	return jumlah;
 }
 
